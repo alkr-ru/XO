@@ -90,21 +90,26 @@ public class Field {
     public void nextStep(char nextChar) {
         System.out.println("Ходят " + nextChar + ".");
         Scanner scan = new Scanner(System.in);
-        int stringNumber = 0;
+        //[dev.nikor] Наверное не stringNumber, а lineNumber?
+        int lineNumber = 0;
         int columnNumber = 0;
         boolean inputAgain = true;
         while (inputAgain) {
-            System.out.print("Введите номер строки незанятой ячейки (начиная с 0): ");
-            stringNumber = scan.nextInt();
-            System.out.print("Введите номер столбца незанятой ячейки (начиная с 0): ");
-            columnNumber = scan.nextInt();
-            if (stringNumber >= FIELD_SIZE || stringNumber < 0 || columnNumber >= FIELD_SIZE || columnNumber < 0 || field[stringNumber][columnNumber] != ' ') {
+            //[dev.nikor] Вводить, начиная с нуля не особо удобно, поэтому будем вводить,
+            //начиная с 1, а потом просто вычтем единицу
+            System.out.print("Введите номер строки незанятой ячейки: ");
+            lineNumber = scan.nextInt() - 1;
+            System.out.print("Введите номер столбца незанятой ячейки: ");
+            columnNumber = scan.nextInt() - 1;
+            //[dev.nikor] Заменяем ' ' в последнем условии на DEFAULT_CHAR
+            if (lineNumber >= FIELD_SIZE || lineNumber < 0 || columnNumber >= FIELD_SIZE || columnNumber < 0
+                    || field[lineNumber][columnNumber] != DEFAULT_CHAR) {
                 System.out.println("Введены неверные значения строки или столбца, либо данная ячейка уже заполнена. Повторите ввод.");
             } else {
                 inputAgain = false;
             }
         }
-        field[stringNumber][columnNumber] = nextChar;
+        field[lineNumber][columnNumber] = nextChar;
     }
 
     // private
