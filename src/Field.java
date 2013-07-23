@@ -44,7 +44,9 @@ public class Field {
     }
 
     public boolean checkVictory() {
-        boolean victory = false;
+        boolean victory, altVictory;
+
+        /*  [dev.nikor] А почему бы не совместить эти два цикла? Придётся добавить новую переменную
         // check rows
         for (int i = 0; i < FIELD_SIZE; ++i) {
             victory = checkRow(i);
@@ -59,9 +61,21 @@ public class Field {
                 return victory;
             }
         }
+        */
+
+        for (int i = 0; i < FIELD_SIZE; i++){
+            victory = checkRow(i);
+            altVictory = checkColumn(i);
+            if(victory || altVictory){
+                return true;
+            }
+        }
+
+        // [dev.nikor] Тут тоже можно совместить, правда, вроде это не сильно поможет. Мой вариант смотри в конце метода
         // check diagonals
         char firstChar = field[0][0];
-        if (firstChar != ' ') {
+        //[dev.nikor] Заменяем ' ' на DEFAULT_CHAR
+        if (firstChar != DEFAULT_CHAR) {
             victory = true;
             for (int i = 1; i < FIELD_SIZE; ++i) {
                 if (field[i][i] != firstChar) {
@@ -75,7 +89,8 @@ public class Field {
         }
         victory = true;
         firstChar = field[0][FIELD_SIZE - 1];
-        if (firstChar == ' ') {
+        //[dev.nikor] Заменяем ' ' на DEFAULT_CHAR
+        if (firstChar == DEFAULT_CHAR) {
             return false;
         }
         for (int i = 1; i < FIELD_SIZE; ++i) {
@@ -85,6 +100,28 @@ public class Field {
             }
         }
         return victory;
+
+        /*
+        char firstChar = field[0][0];
+        char altFirstChar = field[0][FIELD_SIZE - 1];
+
+        if(firstChar == DEFAULT_CHAR && altFirstChar == DEFAULT_CHAR){
+            return false;
+        }
+        victory = altVictory = true;
+        for (int i = 0; i < FIELD_SIZE; i++){
+            char temp = field[i][i];
+            if(temp != firstChar || temp == DEFAULT_CHAR){
+                victory = false;
+            }
+            temp = field[i][FIELD_SIZE - 1 - i];
+            if (temp != firstChar || temp == DEFAULT_CHAR){
+                altVictory = false;
+            }
+        }
+
+        return victory || altVictory;
+        */
     }
 
     public void nextStep(char nextChar) {
@@ -137,7 +174,8 @@ public class Field {
 
     private boolean checkRow(int lineNumber) {
         char firstChar = field[lineNumber][0];
-        if (firstChar == ' ') {
+        //[dev.nikor] Заменяем ' ' на DEFAULT_CHAR
+        if (firstChar == DEFAULT_CHAR) {
             return false;
         }
         for (int i = 1; i < FIELD_SIZE; ++i) {
@@ -150,7 +188,8 @@ public class Field {
 
     private boolean checkColumn(int lineNumber) {
         char firstChar = field[0][lineNumber];
-        if (firstChar == ' ') {
+        //[dev.nikor] Заменяем ' ' на DEFAULT_CHAR
+        if (firstChar == DEFAULT_CHAR) {
             return false;
         }
         for (int i = 1; i < FIELD_SIZE; ++i) {

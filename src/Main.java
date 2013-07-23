@@ -12,7 +12,11 @@ public class Main {
         //[dev.nikor]
         //Эту строчку лучше бы переместить в начало, а то эта надпись появляется уже после вывода поля для игры
         //System.out.println("Начало игры.");
+
+        //[dev.nikor] Есть ошибка, если все клетки будут заняты и никто не выиграет
         while(!field.checkVictory()) {
+            //[dev.nikor]
+            //Можно заменить этот if-else на nextChar = (nextChar == 'X' ? 'O' : 'X');
             if(nextChar == 'X') {
                 nextChar = 'O';
             } else {
