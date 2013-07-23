@@ -18,10 +18,15 @@ public class Field {
     }
 
     // public
+    /*  [dev.nikor]
+        То же замечание, что и для eraseField()
+     */
     public void showField() {
         System.out.println();
         for (int i = 0; i < FIELD_SIZE; ++i) {
-            showLine(i);
+            for (int j = 0; j < FIELD_SIZE; ++j){
+                System.out.print("[" + field[i][j] + "]");
+            }
             System.out.println();
         }
     }
@@ -103,6 +108,7 @@ public class Field {
     }
 
     // private
+    /*  [dev.nikor]
     private void showLine(int lineNumber) {
         for (int i = 0; i < FIELD_SIZE; ++i) {
             showCell(lineNumber, i);
@@ -113,7 +119,6 @@ public class Field {
         System.out.print("[" + field[x][y] + "]");
     }
 
-    /*  [dev.nikor]
     private void eraseLine(int lineNumber) {
         for (int i = 0; i < FIELD_SIZE; ++i) {
             eraseCell(lineNumber, i);
