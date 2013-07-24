@@ -3,29 +3,20 @@ public class Main {
     public static void main(String args[]) {
         System.out.println("Начало игры.");
         Field field = new Field();
-        /*[dev.nikor]
-        Кидаем в конструктор
-        field.eraseField();
-        field.showField();
-        */
         char nextChar = 'O';
-        //[dev.nikor]
-        //Эту строчку лучше бы переместить в начало, а то эта надпись появляется уже после вывода поля для игры
-        //System.out.println("Начало игры.");
+        int stepNumber = 0;
 
-        //[dev.nikor] Есть ошибка, если все клетки будут заняты и никто не выиграет
-        while(!field.checkVictory()) {
-            //[dev.nikor]
-            //Можно заменить этот if-else на nextChar = (nextChar == 'X' ? 'O' : 'X');
-            if(nextChar == 'X') {
-                nextChar = 'O';
-            } else {
-                nextChar = 'X';
-            }
+        while(!field.checkVictory() && stepNumber < Field.FIELD_SIZE * Field.FIELD_SIZE) {
+            nextChar = (nextChar == 'X' ? 'O' : 'X');
             field.nextStep(nextChar);
+            stepNumber++;
             field.showField();
         }
         System.out.println("Игра завершена.");
-        System.out.println("Победили "+nextChar+".");
+        if (stepNumber < Field.FIELD_SIZE * Field.FIELD_SIZE) {
+            System.out.println("Победили "+nextChar+".");
+        } else {
+            System.out.println("Ничья.");
+        }
     }
 }
